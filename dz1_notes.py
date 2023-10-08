@@ -2,10 +2,14 @@
 # Программа должна уметь создавать заметку, сохранять её, читать список заметок,
 # редактировать заметку, удалять заметку.
 
+# использована библиотека Tkinter, с возможностью создавать графические интерфейсы
+#
+#
 import tkinter as tk
 import os
 
 
+# Главное окно с элементами управления работы с заметками
 class MainWindow:
     def __init__(self, master):
         self.master = master
@@ -20,6 +24,7 @@ class MainWindow:
         )
         self.view_button.pack(pady=10)
 
+    # ф-ция (метод) создание заметки в новом окне
     def create_note(self):
         self.note_window = tk.Toplevel(self.master)
         self.note_window.title("Новая заметка")
@@ -40,6 +45,7 @@ class MainWindow:
         )
         self.cancel_button.pack(side=tk.RIGHT, padx=10)
 
+    # сохранение заметки и запись в файл .txt
     def save_note(self):
         note_text = self.note_text.get("1.0", "end-1c")
         note_num = len([name for name in os.listdir() if name.endswith(".txt")])
@@ -50,6 +56,7 @@ class MainWindow:
 
             self.note_window.destroy()
 
+    # просмотр заметок
     def view_notes(self):
         self.notes_window = tk.Toplevel(self.master)
         self.notes_window.title("Все заметки")
@@ -87,6 +94,7 @@ class MainWindow:
         note_label = tk.Label(self.view_window, text=note_text)
         note_label.pack(padx=10, pady=10)
 
+    # редактирование заметки
     def edit_note(self):
         selected_note = self.notes_listbox.get(tk.ACTIVE)
 
@@ -115,6 +123,7 @@ class MainWindow:
         )
         self.cancel_button.pack(side=tk.RIGHT, padx=10)
 
+    # сохранение отредактированной заметки
     def save_edited(self, note_name):
         note_text = self.note_text.get("1.0", "end-1c")
         with open(note_name, "w") as note_file:
@@ -122,6 +131,7 @@ class MainWindow:
 
         self.edit_window.destroy()
 
+    # удаление заметки
     def delete_note(self):
         selected_note = self.notes_listbox.get(tk.ACTIVE)
         os.remove(selected_note)
