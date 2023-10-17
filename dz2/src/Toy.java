@@ -39,4 +39,11 @@ public class Toy {
         this.frequency = frequency;
     }
 
+    // переопределение вывода
+    @Override
+
+    public String toString() {
+        return "id=" + id + " название " + name + " частота " + frequency;
+    }
+
 }
