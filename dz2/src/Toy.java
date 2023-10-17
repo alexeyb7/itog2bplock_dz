@@ -1,10 +1,13 @@
-import java.io.*;
-import java.util.*;
+/*
+ * создание класса игрушек с тремя полями
+ * id игрушки, имя name, частотса выпадения frequency
+ */
 
 public class Toy {
-    private int id;
-    private String name;
-    private double frequency;
+    public int id;
+    public String name;
+    public double frequency;
+    // конструктор класса принимает три параметра
 
     public Toy(int id, String name, double frequency) {
         this.id = id;
@@ -24,39 +27,16 @@ public class Toy {
         return frequency;
     }
 
-    public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(new File("toys.txt"));
-        List ids = new ArrayList<>();
-        List names = new ArrayList<>();
-        List frequencies = new ArrayList<>();
-
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] tokens = line.split(",");
-            ids.add(Integer.parseInt(tokens[0]));
-            names.add(tokens[1]);
-            frequencies.add(Double.parseDouble(tokens[2]));
-        }
-
-        PriorityQueue toysQueue = new PriorityQueue(frequencies.size(), Comparator.comparingDouble(Toy::getFrequency));
-        for (int i = 0; i < frequencies.size(); i++) {
-            Toy toy = new Toy(ids.get(i), names.get(i), frequencies.get(i));
-            toysQueue.add(toy);
-        }
-
-        Queue queue = new LinkedList<>();
-        queue.addAll(toysQueue);
-
-        writeToFile("result.txt,queue");
-
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public static void writeToFile(String filename, Queue queue) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
-        for (int i = 0; i < 10; i++) {
-            Toy toy = queue.poll();
-            bw.write(toy.getId() + "," + toy.getName() + "," + toy.getFrequency() + "n");
-        }
-        bw.close();
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public void setFrequency(double frequency) {
+        this.frequency = frequency;
+    }
+
 }
